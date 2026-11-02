@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuckDuckGo Past Day Searches</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .counter {
+            text-align: center;
+            color: #6d4aff;
+            font-size: 0.9rem;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+        
+        .window-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 16px;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .window {
+            background: linear-gradient(145deg, #2d2d44, #3a3a5c);
+            border-radius: 12px;
+            padding: 20px 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .window::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6d4aff, #ff6d4a);
+            opacity: 0.8;
+        }
+        
+        .window:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 12px 20px rgba(109,74,255,0.3),
+                0 6px 10px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        
+        .window:active {
+            transform: translateY(-4px) scale(0.98);
+        }
+        
+        .window-title {
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            word-break: break-word;
+        }
+        
+        .window-subtitle {
+            color: #aaa;
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .search-icon {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 10px;
+            opacity: 0.75;
+        }
+        
+        .click-hint {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.65rem;
+            color: #6d4aff;
+            text-align: center;
+        }
+        
+        .new-window-hint {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.6rem;
+            color: #888;
+            text-align: center;
+        }
+        
+        @media (max-width: 700px) {
+            h1 {
+                font-size: 1.3rem;
+                padding: 0 10px;
+            }
+            
+            .window-container {
+                grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+                gap: 14px;
+                padding: 10px;
+            }
+            
+            .window-title {
+                font-size: 1.1rem;
+            }
+            
+            .search-icon {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 420px) {
+            .window-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .category-label {
+            grid-column: 1 / -1;
+            color: #6d4aff;
+            font-size: 1.1rem;
+            margin-top: 12px;
+            margin-bottom: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        @media (max-width: 500px) {
+            .category-label {
+                font-size: 0.95rem;
+                margin-top: 10px;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 DuckDuckGo Past Day Searches</h1>
+    <div class="counter">52 λέξεις · τελευταίο 24ωρο</div>
+    
+    <div class="window-container">
+        <!-- ΓΕΝΙΚΑ / ΕΚΤΑΚΤΑ -->
+        <div class="category-label">Γενικά / Έκτακτα</div>
+        
+        <a href="https://duckduckgo.com/?q=σοκ&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">💥</div>
+                <div class="window-title">σοκ</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=δολοφονία&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🔪</div>
+                <div class="window-title">δολοφονία</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=επιχείρηση&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🎯</div>
+                <div class="window-title">επιχείρηση</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=έκτακτη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">⚡</div>
+                <div class="window-title">έκτακτη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=έκτακτο&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">⚠️</div>
+                <div class="window-title">έκτακτο</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=βρέθηκε&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">✅</div>
+                <div class="window-title">βρέθηκε</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=χάθηκε&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">❌</div>
+                <div class="window-title">χάθηκε</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=καταστροφή&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🔥</div>
+                <div class="window-title">καταστροφή</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=καταστροφές&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">💀</div>
+                <div class="window-title">καταστροφές</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <!-- ΑΘΛΗΤΙΣΜΟΣ -->
+        <div class="category-label">Αθλητισμός</div>
+        
+        <a href="https://duckduckgo.com/?q=παναθηναικός&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">⚽</div>
+                <div class="window-title">παναθηναικός</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=εθνική&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇬🇷</div>
+                <div class="window-title">εθνική</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <!-- ΑΣΦΑΛΕΙΑ / ΑΣΤΥΝΟΜΙΑ -->
+        <div class="category-label">Ασφάλεια / Αστυνομία</div>
+        
+        <a href="https://duckduckgo.com/?q=πυροβολισμοί&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🔫</div>
+                <div class="window-title">πυροβολισμοί</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=καταδιώξη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🚔</div>
+                <div class="window-title">καταδιώξη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=συλληψη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🤲</div>
+                <div class="window-title">συλληψη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=αποδραση&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🏃</div>
+                <div class="window-title">αποδραση</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=τραυματίες&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🚑</div>
+                <div class="window-title">τραυματίες</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=έκρηξη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">💣</div>
+                <div class="window-title">έκρηξη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=συνελήφθη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">👮</div>
+                <div class="window-title">συνελήφθη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=αστυνομική&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">👮‍♀️</div>
+                <div class="window-title">αστυνομική</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=αστυνομία&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🚓</div>
+                <div class="window-title">αστυνομία</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Τέμπη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🚂</div>
+                <div class="window-title">Τέμπη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <!-- ΔΙΕΘΝΕΙΣ ΧΩΡΕΣ -->
+        <div class="category-label">Διεθνείς Χώρες</div>
+        
+        <a href="https://duckduckgo.com/?q=ΕΕ&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇪🇺</div>
+                <div class="window-title">ΕΕ</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=ΗΠΑ&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇺🇸</div>
+                <div class="window-title">ΗΠΑ</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Ρωσία&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇷🇺</div>
+                <div class="window-title">Ρωσία</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Κίνα&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇨🇳</div>
+                <div class="window-title">Κίνα</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Ουκρανία&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇺🇦</div>
+                <div class="window-title">Ουκρανία</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Ιραν&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇮🇷</div>
+                <div class="window-title">Ιραν</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Ισραηλ&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇮🇱</div>
+                <div class="window-title">Ισραηλ</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Ινδια&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇮🇳</div>
+                <div class="window-title">Ινδια</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Βραζιλια&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇧🇷</div>
+                <div class="window-title">Βραζιλια</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=Νιγηρια&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🇳🇬</div>
+                <div class="window-title">Νιγηρια</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <!-- ΣΧΕΤΙΚΑ ΜΕ ΠΟΛΕΜΟ -->
+        <div class="category-label">Πόλεμος / Άμυνα</div>
+        
+        <a href="https://duckduckgo.com/?q=πόλεμος&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">⚔️</div>
+                <div class="window-title">πόλεμος</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=αμυντική&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🛡️</div>
+                <div class="window-title">αμυντική</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <!-- ΠΟΛΙΤΙΚΗ -->
+        <div class="category-label">Πολιτική</div>
+        
+        <a href="https://duckduckgo.com/?q=νόμος&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">⚖️</div>
+                <div class="window-title">νόμος</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=νομοσχέδιο&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">📜</div>
+                <div class="window-title">νομοσχέδιο</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=βουλη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🏛️</div>
+                <div class="window-title">βουλη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=κυβέρνηση&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🏢</div>
+                <div class="window-title">κυβέρνηση</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=αντιπολίτευση&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🗣️</div>
+                <div class="window-title">αντιπολίτευση</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=εκλογές&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🗳️</div>
+                <div class="window-title">εκλογές</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=μητσοτάκης&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🎙️</div>
+                <div class="window-title">μητσοτάκης</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=νδ&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🔵</div>
+                <div class="window-title">νδ</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <!-- ΕΠΙΣΤΗΜΗ / ΤΕΧΝΟΛΟΓΙΑ -->
+        <div class="category-label">Επιστήμη / Τεχνολογία</div>
+        
+        <a href="https://duckduckgo.com/?q=εφευρεση&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">💡</div>
+                <div class="window-title">εφευρεση</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=ανακαλυψη&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🔭</div>
+                <div class="window-title">ανακαλυψη</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+        
+        <a href="https://duckduckgo.com/?q=ερευνα&df=d&t=d&ia=web" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+            <div class="window">
+                <div class="search-icon">🔬</div>
+                <div class="window-title">ερευνα</div>
+                <div class="window-subtitle">Past day</div>
+                <span class="click-hint">Click to search →</span>
+                <span class="new-window-hint">Opens in new tab 🪟</span>
+            </div>
+        </a>
+    </div>
+</body>
+</html>
